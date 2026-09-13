@@ -35,17 +35,40 @@ def handle_choice(choice):
          for patient in patients_list:
               if patient["name"] == search_name:
                  print(f"""
-                 patient
+                 patient 
                  -------
                  Name: {patient ["name"]}
                  Age: {patient ["age"]}
-                 Gendeer: {patient ["gender"]}
+                 Gender: {patient ["gender"]}
                  """)
                  found = True
                  break
          if not found:
              print("patient not found")
-             
+     elif choice == 4:
+         update_name = input("Enter patient's name to update: ")
+         found = False
+         for patient in patients_list:
+             if patient["name"] == update_name:
+                print(f"""
+                patient 
+                -------
+                Name: {patient ["name"]}
+                age: {patient ["age"]}
+                Gender: {patient ["gender"]}
+                """)
+                new_name = input("Enter the new name: ")
+                new_age  = int(input("Enter new age: "))
+                new_gender = input("Enter new gender: ")
+                patient["name"] = new_name
+                patient["age"] = new_age
+                patient["gender"] = new_gender
+                print("Patient's Information updated Successfully!")
+                found = True
+                break
+         if not found:
+                 print("patient not found")
+        
      else:
          print("Invalid Option")
 while True:
@@ -58,12 +81,13 @@ while True:
     1. Register Patient
     2. View Patients
     3. Search Patients
-    4. Exit
+    4. Update Patient
+    5. Exit
     """)
    try:
     choice = int(input("Enter your choice: "))
     handle_choice(choice) 
-    if choice == 4:
+    if choice == 5:
         print("Thanks for using the system")
         break
    except ValueError:
