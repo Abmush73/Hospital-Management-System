@@ -1,4 +1,28 @@
+import os
+
 patients_list = []
+
+def save_patients():
+    with open("patients_data.txt", "w") as f:
+        for patient in patients_list:
+            f.write(f"{patient['name']},{patient['age']},{patient['gender']}\n")
+
+def load_patients():
+    if not os.path.exists("patients_data.txt"):
+        return
+    with open("patients_data.txt", "r") as f:
+        for line in f:
+            line = line.strip()
+            if line == "":
+                continue
+            name, age, gender = line.split(",")
+            patient = {
+                "Name" : name,
+                "Age" : int(age),
+                "Gender" : gender
+            }
+            patients_list.append(patient)
+
 def handle_choice(choice):
      if choice == 1:
         print("Patient Registration Selected")
@@ -14,7 +38,8 @@ def handle_choice(choice):
                   "age": patient_age,
                   "gender": patient_gender
                }
-        patients_list.append(patient)    
+        patients_list.append(patient) 
+        save_patients()   
      elif choice == 2:
         print("Viewing Patients")
         if patients_list == []:
@@ -64,6 +89,7 @@ def handle_choice(choice):
                 patient["age"] = new_age
                 patient["gender"] = new_gender
                 print("Patient's Information updated Successfully!")
+                save_patients()
                 found = True
                 break
          if not found:
@@ -76,6 +102,7 @@ def handle_choice(choice):
                  print(f"""
                  Patient
                  -------
+                 
                  Name: {patient["name"]}
                  Age: {patient["age"]}
                  Gender: {patient["gender"]}
@@ -83,6 +110,7 @@ def handle_choice(choice):
                  confirmation = input("Are you sure you want to delete this patient? (Y/N): ")
                  if confirmation.strip().upper() == "Y":
                      patients_list.remove(patient)
+                     save_patients()
                      print("patient deleted successfully.")
                  elif confirmation.strip().upper() == "N":
                      print("Deletion cancelled.")
@@ -94,6 +122,9 @@ def handle_choice(choice):
              print("patient not found.")
      else:
          print("Invalid Option")
+
+load_patients()
+
 while True:
    print("Select From The Available Options")
    print("""
@@ -115,5 +146,5 @@ while True:
         print("Thanks for using the system")
         break
    except ValueError:
-         print("Invalid input. Please enter a number between 1 and 3.")
+         print("Invalid input. Please enter a number between 1 and 6.")
 
