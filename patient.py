@@ -1,5 +1,6 @@
 class Patient:
-    def __init__(self, name, age, gender):
+    def __init__(self, patient_id, name, age, gender):
+        self.patient_id = patient_id
         self.name = name
         self.age = int(age)
         self.gender = gender
@@ -8,7 +9,8 @@ class Patient:
         print(f"""
     Patient Information
     -------------------
+    ID: {self.patient_id}
     Name: {self.name}
     Age: {self.age}
     Gender: {self.gender}
-    """)
+    """) 

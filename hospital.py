@@ -1,43 +1,30 @@
 from patient import Patient
-from file_manager import save_patients, load_patients
+import database
 
 class Hospital:
     def __init__(self):
-        self.patients_list = load_patients()
+        database.create_table()
 
     def register_patient(self, name, age, gender):
-        patient = Patient(name, age, gender)
-        self.patients_list.append(patient)
-        save_patients(self.patients_list)
+        patient = database.register_patient(name, age, gender)
         return patient
 
     def view_patients(self):
-        return self.patients_list
+        registered_patients = database.get_all_patients()
+        return registered_patients
 
-    def search_patient(self, name):
-        for patient in self.patients_list:
-            if patient.name == name:
-                return patient
-        return None
+    def search_patient(self, patient_id):
+        check = database.search_patient(patient_id)
+        return check
 
-    def update_patient(self, name, new_name, new_age, new_gender):
-        for patient in self.patients_list:
-            if patient.name == name:
-                patient.name = new_name
-                patient.age = new_age
-                patient.gender = new_gender
-                save_patients(self.patients_list)
-                return True
-        return None
+    def update_patient(self, patient_id, new_name, new_age, new_gender):
+        update = database.update_patient(patient_id, new_name, new_age, new_gender)
+        return update
         
-    def delete_patient(self, name):
-        for patient in self.patients_list:
-            if patient.name == name:
-                self.patients_list.remove(patient)
-                save_patients(self.patients_list)
-                return True
-        return None
+    def delete_patient(self, patient_id):
+        delete = database.delete_patient(patient_id)
+        return delete
 
     def clear_all_patients(self):
-        self.patients_list = []
-        save_patients(self.patients_list)
+        clear = database.clear_all_patients()
+        return clear

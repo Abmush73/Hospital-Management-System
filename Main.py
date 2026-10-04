@@ -27,7 +27,7 @@ def handle_choice(choice):
                 patient.display_information()
 
      elif choice == 3:
-         search_name = input("Enter patient's Name to Search: ").strip().upper()
+         search_name = input("Enter patient's ID to Search: ").strip().upper()
          result = hospital.search_patient(search_name)
          if not result:
              print("patient not found")
@@ -35,7 +35,7 @@ def handle_choice(choice):
              result.display_information()
 
      elif choice == 4:
-         update_name = input("Enter patient's name to update: ").strip().upper()
+         update_name = input("Enter patient's ID to update: ").strip().upper()
          found_patient = hospital.search_patient(update_name)
          if not found_patient:
              print("patient not found")
@@ -48,7 +48,7 @@ def handle_choice(choice):
              print("Patient's Information updated Successfully!")
 
      elif choice == 5:
-         delete_name = input("Enter patient's name to be deleted: ").strip().upper()
+         delete_name = input("Enter patient's ID to be deleted: ").strip().upper()
          found_patient = hospital.search_patient(delete_name)
          if not found_patient:
              print("patient not found")
@@ -93,8 +93,8 @@ while True:
    try:
     choice = int(input("Enter your choice: "))
     handle_choice(choice) 
-    if choice == 6:
+    if choice == 7:
         print("Thanks for using the system")
         break
    except ValueError:
-         print("Invalid input. Please enter a number between 1 and 6.")
+         print("Invalid input. Please enter a number between 1 and 7.")
