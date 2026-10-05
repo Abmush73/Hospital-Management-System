@@ -5,9 +5,29 @@ hospital = Hospital()
 def handle_choice(choice):
      if choice == 1:
         print("Patient Registration Selected")
-        patient_name = input("Enter patient's name: ").strip().upper()
-        patient_age = int(input("Enter patient's Age: "))
-        patient_gender = input("Enter patient's Gender: ").upper()
+        while True:
+            patient_name = input("Enter patient's name: ").strip().upper()
+            if patient_name == "":
+                print("This field is required, it cannot be empty.")
+            elif not patient_name.replace(" ", "").isalpha():
+                print("Name must contain only letters.")
+            else:
+                break
+        while True:
+            try:
+                patient_age = int(input("Enter patient's Age: "))
+                if patient_age < 1 or patient_age > 100:
+                    print("Age must be between 1-100")
+                else:
+                    break 
+            except ValueError:
+                print("Only whole numbers are allowed")
+        while True:
+            patient_gender = input("Enter patient's Gender (M/F): ").upper()
+            if patient_gender.upper() != "M" and patient_gender.upper() != "F":
+                print("Invalid input, enter M or F")
+            else:
+                break 
         new_patient = hospital.register_patient(patient_name, patient_age, patient_gender)
         new_patient.display_information()
         print("Patient registered successfully")
