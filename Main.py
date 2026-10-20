@@ -1,34 +1,16 @@
 from hospital import Hospital
-
+from validators import (get_valid_name, get_valid_age, get_valid_gender,get_valid_phone, get_required_text)
 hospital = Hospital()
 
 def handle_choice(choice):
      if choice == 1:
         print("Patient Registration Selected")
-        while True:
-            patient_name = input("Enter patient's name: ").strip().upper()
-            if patient_name == "":
-                print("This field is required, it cannot be empty.")
-            elif not patient_name.replace(" ", "").isalpha():
-                print("Name must contain only letters.")
-            else:
-                break
-        while True:
-            try:
-                patient_age = int(input("Enter patient's Age: "))
-                if patient_age < 1 or patient_age > 100:
-                    print("Age must be between 1-100")
-                else:
-                    break 
-            except ValueError:
-                print("Only whole numbers are allowed")
-        while True:
-            patient_gender = input("Enter patient's Gender (M/F): ").upper()
-            if patient_gender.upper() != "M" and patient_gender.upper() != "F":
-                print("Invalid input, enter M or F")
-            else:
-                break 
-        new_patient = hospital.register_patient(patient_name, patient_age, patient_gender)
+        patient_name = get_valid_name("Enter patient's name: ")
+        patient_age = get_valid_age("Enter patient's Age: ")
+        patient_gender = get_valid_gender("Enter patient's Gender (M/F): ")
+        patient_phone_number = get_valid_phone("Enter patient's Phone number: ")
+        patient_address = get_required_text("Enter patient's Address: ")
+        new_patient = hospital.register_patient(patient_name, patient_age, patient_gender, patient_phone_number, patient_address)
         new_patient.display_information()
         print("Patient registered successfully")
 
@@ -64,7 +46,9 @@ def handle_choice(choice):
              new_name = input("Enter the new name: ").strip().upper()
              new_age  = int(input("Enter new age: "))
              new_gender = input("Enter new gender: ").strip().upper()
-             hospital.update_patient(update_name, new_name, new_age, new_gender)
+             new_patient_phone_number = input("Enter new phone_number: ").isdigit()
+             new_patient_address = input("Enter new patient address: ")
+             hospital.update_patient(update_name, new_name, new_age, new_gender, new_patient_phone_number, new_patient_address)
              print("Patient's Information updated Successfully!")
 
      elif choice == 5:
