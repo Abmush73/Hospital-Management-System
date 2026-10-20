@@ -43,11 +43,11 @@ def handle_choice(choice):
              print("patient not found")
          else:
              found_patient.display_information()
-             new_name = input("Enter the new name: ").strip().upper()
-             new_age  = int(input("Enter new age: "))
-             new_gender = input("Enter new gender: ").strip().upper()
-             new_patient_phone_number = input("Enter new phone_number: ").isdigit()
-             new_patient_address = input("Enter new patient address: ")
+             new_name = get_valid_name("Enter the new name: ")
+             new_age  = get_valid_age("Enter new age: ")
+             new_gender = get_valid_gender("Enter new gender: ")
+             new_patient_phone_number = get_valid_phone("Enter new phone_number: ")
+             new_patient_address = get_required_text("Enter new patient address: ")
              hospital.update_patient(update_name, new_name, new_age, new_gender, new_patient_phone_number, new_patient_address)
              print("Patient's Information updated Successfully!")
 
