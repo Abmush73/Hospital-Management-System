@@ -2,7 +2,7 @@ from hospital import Hospital
 from validators import (get_valid_name, get_valid_age, get_valid_gender,get_valid_phone, get_required_text)
 hospital = Hospital()
 
-def handle_choice(choice):
+def handle_patient_choice(choice):
      if choice == 1:
         print("Patient Registration Selected")
         patient_name = get_valid_name("Enter patient's name: ")
@@ -46,7 +46,7 @@ def handle_choice(choice):
              new_name = get_valid_name("Enter the new name: ")
              new_age  = get_valid_age("Enter new age: ")
              new_gender = get_valid_gender("Enter new gender: ")
-             new_patient_phone_number = get_valid_phone("Enter new phone_number: ")
+             new_patient_phone_number = get_valid_phone("Enter new phone number: ")
              new_patient_address = get_required_text("Enter new patient address: ")
              hospital.update_patient(update_name, new_name, new_age, new_gender, new_patient_phone_number, new_patient_address)
              print("Patient's Information updated Successfully!")
@@ -60,45 +60,70 @@ def handle_choice(choice):
              found_patient.display_information()
              confirmation = input("Are you sure you want to delete this patient? (Y/N): ")
              if confirmation.strip().upper() == "Y":
-                 hospital.delete_patient(delete_name)
-                 print("patient deleted successfully.")
+                hospital.delete_patient(delete_name)
+                print("patient deleted successfully.")
              elif confirmation.strip().upper() == "N":
-                 print("Deletion cancelled.")
+                print("Deletion cancelled.")
              else:
-                 print("Invalid option")
+                print("Invalid option")
      elif choice == 6:
          confirmation = input("Are you sure you want to delete ALL patient records? This cannot be undone. (Y/N): ")
          if confirmation.strip().upper() == "Y":
-             hospital.clear_all_patients()
-             print("All patient records have been cleared.")
+            hospital.clear_all_patients()
+            print("All patient records have been cleared.")
          elif confirmation.strip().upper() == "N":
-             print("Clear cancelled.")
+            print("Clear cancelled.")
          else:
-             print("Invalid option")
+            print("Invalid option")
 
      else:
-         print("Invalid Option")
+        print("Invalid Option")
+
+def patient_menu():
+    while True:
+        print("Select From The Available Options")
+        print("""
+            1. Register Patient
+            2. View Patients
+            3. Search Patient
+            4. Update Patient
+            5. Delete Patient
+            6. Delete patients record
+            7. Back
+            """)
+        try:
+            choice = int(input("Enter your choice: "))
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 7.")
+            continue
+        if choice == 7:
+            return
+        handle_patient_choice(choice)
 
 while True:
-   print("Select From The Available Options")
-   print("""
-    =================================
-    HOSPITAL MANAGEMENT SYSTEM
-    =================================
-
-    1. Register Patient
-    2. View Patients
-    3. Search Patient
-    4. Update Patient
-    5. Delete Patient
-    6. Delete patients record
-    7. Exit
-    """)
-   try:
-    choice = int(input("Enter your choice: "))
-    handle_choice(choice) 
-    if choice == 7:
+    print("Select From the Available Options")
+    print("""
+    ====================================
+        HOSPITAL MANAGEMENT SYSTEM
+    ====================================
+    1. Patients
+    2. Doctors
+    3. Exit
+    """ )
+    try:
+        choice = int(input("Enter your choice: "))
+    except ValueError:
+        print("Enter a number between 1 and 3")
+        continue
+    if choice == 1:
+        patient_menu()
+    elif choice == 2:
+        print("Doctors Menu Coming soon")
+    elif choice == 3:
         print("Thanks for using the system")
         break
-   except ValueError:
-         print("Invalid input. Please enter a number between 1 and 7.")
+    else:
+        print("invalid choice")
+
+
+
