@@ -11,10 +11,10 @@ class Doctor:
         print(f"""
         Available Doctor
         ----------------
-        Doctor_id: {self.doctor_id}
+        Doctor ID: {self.doctor_id}
         Name: {self.name}
         Specialization: {self.specialization}
         Department: {self.department}
-        Phone_number: {self.phone_number}
+        Phone number: {self.phone_number}
         Email: {self.email}
         """)
