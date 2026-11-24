@@ -98,7 +98,7 @@ def create_tables():
     conn.commit()
     conn.close()
 
-# ---------------- patients ----------------
+# ----------- patients -----------
 
 def register_patient(name, age, gender, phone_number, address):
     with closing(sqlite3.connect("hospital.db")) as conn:
@@ -173,7 +173,7 @@ def clear_all_patients():
         else:
             return False
 
-# ---------------- doctors ----------------
+# ------------ doctors ------------
 
 def register_doctor(name, specialization, department, phone_number, email):
     with closing(sqlite3.connect("hospital.db")) as conn:
@@ -231,7 +231,7 @@ def delete_doctor(doctor_id):
         else:
             return False
 
-# ---------------- appointments ----------------
+# ----------- appointments ------------
 
 APPOINTMENT_QUERY = """
 SELECT a.appointment_id, a.patient_id, COALESCE(p.name, '[deleted]'), a.doctor_id, COALESCE(d.name, '[deleted]'),
@@ -296,7 +296,7 @@ def cancel_appointment(appointment_id):
         else:
             return False
 
-# ---------------- consultations ----------------
+# -------- consultations -------
 
 def complete_appointment(appointment_id, diagnosis, prescription):
     new_id = generate_id("consultations", "consultation_id", "CON")
@@ -311,7 +311,7 @@ def complete_appointment(appointment_id, diagnosis, prescription):
         consultation = Consultation(new_id, appointment_id, diagnosis, prescription)
         return consultation
 
-# ---------------- billing ----------------
+# ---- billing -----
 
 def row_to_bill(row):
     return Bill(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
